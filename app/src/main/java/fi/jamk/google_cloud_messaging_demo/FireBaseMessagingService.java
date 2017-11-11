@@ -11,6 +11,7 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -27,13 +28,13 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
 
         //Check if the message contains data
         if(remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data: " + remoteMessage.getData());
+            showNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("author"), remoteMessage.getData().get("token"));
         }
 
         //Check if the message contains notification
 
         if(remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Mesage body:" + remoteMessage.getNotification().getBody());
+            Log.d(TAG, "Message body:" + remoteMessage.getNotification().getBody());
             sendNotification(remoteMessage.getNotification().getBody());
         }
     }
@@ -53,7 +54,7 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
 
         NotificationCompat.Builder notifiBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Firebase Cloud Messaging")
+                .setContentTitle("Important notification to all users")
                 .setContentText(body)
                 .setAutoCancel(true)
                 .setSound(notificationSound)
@@ -61,5 +62,28 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
 
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0 /*ID of notification*/, notifiBuilder.build());
+    }
+
+    private void showNotification(String title, String author, String token) {
+        if(token.matches(FirebaseInstanceId.getInstance().getToken().toString()))
+            return;
+        Intent intent = new Intent(this, FireBaseMessagingTopics.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setContentTitle("New message: " + title)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentText("By " + author)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 }
