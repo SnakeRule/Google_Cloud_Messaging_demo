@@ -4,10 +4,11 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.google.firebase.messaging.FirebaseMessagingService;
 
 /**
  * Created by Jere on 10.11.2017.
+ *
+ * Service joka luo laitteelle token -laitetunnisteen firebase pilveen. Tämän avulla firebase tunnistaa laitteen
  */
 
 public class FirebaseInstanceIDService extends FirebaseInstanceIdService {

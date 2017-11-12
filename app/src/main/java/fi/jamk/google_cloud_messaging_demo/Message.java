@@ -4,6 +4,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 /**
  * Created by Jere on 11.11.2017.
+ * Message -luokka johon kerätään tietokantaan lähetettävä data
  */
 
 public class Message {

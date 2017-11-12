@@ -2,43 +2,34 @@ package fi.jamk.google_cloud_messaging_demo;
 
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Chat huone activityn luokka. Hakee viestit tietokannasta, näyttää ne ja lähettää viestit tietokantaan
+ */
+
 public class FireBaseMessagingTopics extends AppCompatActivity {
     TextView name;
-    EditText subscribeEditText;
-    String sub;
-    Context context;
-    String response;
-    RequestQueue MyRequestQueue;
     FirebaseDatabase database;
     EditText titleEditText;
-    EditText authorEditText;
     EditText topicEditText;
     DatabaseReference dbRef;
     ListView listView;
@@ -56,6 +47,7 @@ public class FireBaseMessagingTopics extends AppCompatActivity {
         name = (TextView) findViewById(R.id.nameTextView);
         UpdateName();
 
+        // Haetaan viestit tietokannasta
         dbRef = database.getReference();
         dbRef.child("messages").addValueEventListener(
                 new ValueEventListener() {
@@ -99,6 +91,7 @@ public class FireBaseMessagingTopics extends AppCompatActivity {
         }
     }
 
+    // Lähetetään viesti tietokantaan
     public void sendMessage(View v)
     {
         if(titleEditText.getText().toString().matches(""))
@@ -110,6 +103,7 @@ public class FireBaseMessagingTopics extends AppCompatActivity {
         titleEditText.setText("");
     }
 
+    // Päivitetään listview jossa viestit näytetään
     void LoadList()
     {
         Collections.reverse(authors);
@@ -118,6 +112,7 @@ public class FireBaseMessagingTopics extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
+    // Käyttäjänimen vaihtanimen alertdialogilla
     public void ChangeName(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 

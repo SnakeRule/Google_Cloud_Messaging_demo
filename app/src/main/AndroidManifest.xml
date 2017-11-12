@@ -30,7 +30,6 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".FireBaseMessaging_Notifications" />
         <activity android:name=".FireBaseMessagingTopics"></activity>
     </application>
 

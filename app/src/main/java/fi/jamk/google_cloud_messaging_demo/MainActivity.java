@@ -9,6 +9,10 @@ import android.widget.TextView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+/**
+ * Pääsivu. Näyttää laitteen token -koodin jolla firebase tunnistaa laitteen
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     TextView tokenTextView;

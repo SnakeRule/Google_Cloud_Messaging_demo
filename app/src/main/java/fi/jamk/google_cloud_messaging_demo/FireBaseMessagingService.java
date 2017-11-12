@@ -2,12 +2,10 @@ package fi.jamk.google_cloud_messaging_demo;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -15,12 +13,15 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import static android.content.ContentValues.TAG;
+/**
+ * Service joka käsittelee firebase cloud messagingin kautta tulleita notifikaatioita ja näyttää ne laitteessa
+ */
 
 public class FireBaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
 
+    // Kutsutaan kun vastaanotetaan notifikaatio
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
@@ -39,10 +40,7 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
         }
     }
 
-    /**
-     * Dispay the notification
-     * @param body
-     */
+    // Kutsutaan kun firebase consolen kautta lähetetään notifikaatio
     private void sendNotification(String body) {
 
         Intent intent = new Intent(this, MainActivity.class);
@@ -64,6 +62,7 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
         notificationManager.notify(0 /*ID of notification*/, notifiBuilder.build());
     }
 
+    // Kutsutaan kun firebase cloud functionsin kautta lähetetään notifikaatio
     private void showNotification(String title, String author, String token) {
         if(token.matches(FirebaseInstanceId.getInstance().getToken().toString()))
             return;
