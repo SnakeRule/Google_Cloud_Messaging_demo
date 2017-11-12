@@ -101,10 +101,13 @@ public class FireBaseMessagingTopics extends AppCompatActivity {
 
     public void sendMessage(View v)
     {
+        if(titleEditText.getText().toString().matches(""))
+            return;
         DatabaseReference myRef = database.getReference("messages").push();
         Message message = new Message(titleEditText.getText().toString(),
                 MainActivity.userName, topicEditText.getText().toString());
         myRef.setValue(message);
+        titleEditText.setText("");
     }
 
     void LoadList()
@@ -125,6 +128,8 @@ public class FireBaseMessagingTopics extends AppCompatActivity {
 
         builder.setPositiveButton("Set", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                if(input.getText().toString().matches(""))
+                    return;
                 MainActivity.userName = input.getText().toString();
                 UpdateName();
             }
