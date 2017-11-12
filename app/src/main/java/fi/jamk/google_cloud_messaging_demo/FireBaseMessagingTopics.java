@@ -99,7 +99,7 @@ public class FireBaseMessagingTopics extends AppCompatActivity {
         }
     }
 
-    public void subscribePressed(View v)
+    public void sendMessage(View v)
     {
         DatabaseReference myRef = database.getReference("messages").push();
         Message message = new Message(titleEditText.getText().toString(),

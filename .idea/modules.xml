@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Google_Cloud_Messaging_demo.iml" filepath="$PROJECT_DIR$/Google_Cloud_Messaging_demo.iml" />
-      <module fileurl="file://C:\Users\Jere\AndroidProjects\Google_Cloud_Messaging_demo\Google_Cloud_Messaging_demo.iml" filepath="C:\Users\Jere\AndroidProjects\Google_Cloud_Messaging_demo\Google_Cloud_Messaging_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Jere\AndroidProjects\Google_Cloud_Messaging_demo\app\app.iml" filepath="C:\Users\Jere\AndroidProjects\Google_Cloud_Messaging_demo\app\app.iml" />
     </modules>
   </component>
 </project>

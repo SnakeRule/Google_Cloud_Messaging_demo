@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
 
+    TextView tokenTextView;
     public static String userName = "anon";
 
     @Override
@@ -16,11 +19,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FirebaseMessaging.getInstance().subscribeToTopic("asd");
-    }
-
-    public void fireBaseMessagingClicked(View v){
-        Intent intent = new Intent(this, FireBaseMessaging_Notifications.class);
-        startActivity(intent);
+        tokenTextView = (TextView) findViewById(R.id.tokenTextView);
+        tokenTextView.setText("Your device token is: \n" + FirebaseInstanceId.getInstance().getToken());
     }
 
     public void fireBaseTopicsClicked(View v){
